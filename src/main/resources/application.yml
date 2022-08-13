@@ -18,7 +18,7 @@ mybatis:
 mydate:
   imgPath: E:\瑞吉外卖-资料\1 瑞吉外卖项目\1 瑞吉外卖项目\资料\图片资源\
 SMSInf:
-  accessKeyId: ###
-  accessKeySecret: ###
+  accessKeyId: dddddd
+  accessKeySecret: aaaaa
   TemplateCode: SMS_221056574
   SignName: 软考助手
