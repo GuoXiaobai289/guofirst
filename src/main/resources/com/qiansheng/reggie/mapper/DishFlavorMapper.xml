@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiansheng.reggie.mapper.DishFlavorMapper">
+    <resultMap id="dishResultMap" type="DishFlavor">
+        <result column="create_time" property="createTime"></result>
+        <result column="update_time" property="updateTime"></result>
+        <result column="create_user" property="createUser"></result>
+        <result column="update_user" property="updateUser"></result>
+        <result column="category_id" property="categoryId"></result>
+        <result column="dish_id" property="dishId"></result>
+    </resultMap>
+    <insert id="add" parameterType="DishFlavor">
+        insert into dish_flavor(dish_id,name,value,create_time,update_time,create_user,update_user)
+        values (#{dishId},#{name},#{value},#{createTime},#{updateTime},#{createUser},#{updateUser})
+    </insert>
+    <select id="upseById" resultMap="dishResultMap">
+        select * from dish_flavor where dish_id=#{id}
+    </select>
+    <delete id="del" parameterType="String">
+        delete from dish_flavor where dish_id=#{id}
+    </delete>
+</mapper>

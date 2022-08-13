@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiansheng.reggie.mapper.ShoppingCartMapper">
+    <resultMap id="ShopResultMap" type="ShoppingCart">
+        <result column="user_id" property="userId"></result>
+        <result column="dish_id" property="dishId"></result>
+        <result column="setmeal_id" property="setmealId"></result>
+        <result column="dish_flavor" property="dishFlavor"></result>
+        <result column="create_time" property="createTime"></result>
+    </resultMap>
+    <select id="selAll" resultMap="ShopResultMap">
+        select * from shopping_cart where user_id=#{id}
+    </select>
+    <insert id="add" parameterType="ShoppingCart">
+        insert into
+            shopping_cart(name,image,user_id,dish_id,setmeal_id,dish_flavor,number,amount,create_time)
+            values(#{name},#{image},#{userId},#{dishId},#{setmealId},#{dishFlavor},#{number},#{amount},#{createTime});
+    </insert>
+    <select id="selByUDS" resultMap="ShopResultMap" parameterType="ShoppingCart">
+        select * from shopping_cart where user_id=#{userId}
+            <if test="dishId!=null">
+                and dish_id=#{dishId}
+            </if>
+            <if test="setmealId!=null">
+                and setmeal_id=#{setmealId}
+            </if>
+    </select>
+    <update id="upNum" parameterType="ShoppingCart">
+        update shopping_cart set number=#{number} where id=#{id};
+    </update>
+    <delete id="del" parameterType="ShoppingCart">
+        delete from shopping_cart where id=#{id}
+    </delete>
+    <delete id="delAll" parameterType="String">
+        delete from shopping_cart where user_id=#{userId}
+    </delete>
+</mapper>
+
