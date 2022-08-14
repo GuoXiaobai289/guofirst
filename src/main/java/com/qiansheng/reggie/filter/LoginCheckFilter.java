@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter("/*")
+@WebFilter(asyncSupported = true,urlPatterns = "/*")
 @Slf4j
 public class LoginCheckFilter implements Filter {
     //路径匹配器
@@ -31,9 +31,11 @@ public class LoginCheckFilter implements Filter {
                 "/employee/login",
                 "/employee/logout",
                 "/backend/**",
-                "/front/**",
+                "/inform/**",
                 "/user/sendMsg",
-                "/user/login"
+                "/user/login",
+                "/sse/**",
+                "/front/**"
         };
         boolean check = check(uris, requestURI);
 

@@ -3,6 +3,9 @@ package com.qiansheng.reggie.util;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 
+/**
+ * 雪花算法封装类
+ */
 public class SnowFlakeUtil {
     private long machineId ;
     private long dataCenterId ;

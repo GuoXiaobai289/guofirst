@@ -16,7 +16,7 @@ mybatis:
   #配置mybatis配置文件xml的位置
   config-locations: classpath:com/qiansheng/reggie/mapper/*.xml
 mydate:
-  imgPath: E:\瑞吉外卖-资料\1 瑞吉外卖项目\1 瑞吉外卖项目\资料\图片资源\
+  imgPath: E:\瑞吉外卖-资料\瑞吉外卖项目\瑞吉外卖项目\资料\图片资源\
 SMSInf:
   accessKeyId: dddddd
   accessKeySecret: aaaaa
