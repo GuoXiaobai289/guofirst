@@ -30,6 +30,12 @@ public class OrdersController {
     @Autowired
     private iOrdersService ordersService;
 
+    /**
+     * 用户下单
+     * @param orders
+     * @param request
+     * @return
+     */
     @PostMapping("/submit")
     public R subm(@RequestBody Orders orders, HttpServletRequest request){
         //判断厨师后台是否在线
@@ -57,10 +63,37 @@ public class OrdersController {
         }
         return R.error("提交失败！");
     }
+
+    /**
+     * 用户端查询订单
+     * @param page
+     * @param pageSize
+     * @return
+     */
     @GetMapping("/userPage")
-    public R<Page> list(String page, String pageSize){
-        List<OrdersDto> ordersDtos = ordersService.OrderSelPage(page, pageSize);
+    public R<Page> userlist(String page, String pageSize,HttpServletRequest request){
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Orders orders = new Orders();
+        orders.setUserId(user.getId());
+        List<OrdersDto> ordersDtos = ordersService.OrderSelPage(page, pageSize,orders);
         Page<OrdersDto> ordersPage = new Page();
+        ordersPage.setRecords(ordersDtos);
+        return R.success(ordersPage);
+    }
+
+    /**
+     * 管理端查询订单
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/page")
+    public R<Page> list(String page, String pageSize,String name){
+        List<OrdersDto> ordersDtos = ordersService.OrderSelPage(page, pageSize,new Orders());
+        int i = ordersService.OrderNu();
+        Page<OrdersDto> ordersPage = new Page();
+        ordersPage.setTotal(i);
         ordersPage.setRecords(ordersDtos);
         return R.success(ordersPage);
     }

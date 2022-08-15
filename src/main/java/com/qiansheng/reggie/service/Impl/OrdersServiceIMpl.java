@@ -68,9 +68,9 @@ public class OrdersServiceIMpl implements iOrdersService {
     }
 
     @Override
-    public List<OrdersDto> OrderSelPage(String page, String pageSize) {
+    public List<OrdersDto> OrderSelPage(String page, String pageSize,Orders orders) {
         int p= (Integer.parseInt(page)-1)*Integer.parseInt(pageSize);
-        List<OrdersDto> ordersDtos = orderMapper.selPage(p, Integer.parseInt(pageSize));
+        List<OrdersDto> ordersDtos = orderMapper.selPage(p, Integer.parseInt(pageSize),orders);
         for (OrdersDto ordersDto : ordersDtos) {
             String number = ordersDto.getNumber();
             //通过订单号查询订单详情
@@ -78,5 +78,10 @@ public class OrdersServiceIMpl implements iOrdersService {
             ordersDto.setOrderDetails(orderDetails);
         }
         return ordersDtos;
+    }
+
+    @Override
+    public int OrderNu() {
+        return orderMapper.selNu();
     }
 }

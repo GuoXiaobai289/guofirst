@@ -11,12 +11,35 @@
         <result column="address_book_id" property="addressBookId"></result>
     </resultMap>
     <select id="selPage" resultMap="ordersResultMap">
-        SELECT * from `orders`
-        <if test="pageSize!=5">
-            where order_time=(
-            SELECT MAX(order_time)
-            FROM `orders`)
-        </if>
+        SELECT
+        orders.id as id,
+        orders.number as number,
+        orders.status as status,
+        orders.user_id as user_id,
+        orders.address_book_id as address_book_id,
+        orders.order_time as order_time,
+        orders.checkout_time as checkout_time,
+        orders.pay_method as pay_method,
+        orders.amount as amount,
+        orders.remark as remark,
+        orders.phone as phone,
+        orders.address as address,
+        user.name as userName
+        from orders,user
+        <where>
+            <if test="1==1">
+                user.id=orders.user_id
+            </if>
+            <if test="orders.userId!=null">
+                and user_id=#{orders.userId}
+            </if>
+            <if test="pageSize==1">
+                and order_time=(
+                SELECT MAX(order_time)
+                FROM `orders`
+                    where user_id=#{orders.userId})
+            </if>
+        </where>
         ORDER BY order_time DESC limit #{page},#{pageSize}
     </select>
     <insert id="inse" parameterType="Orders">
@@ -26,4 +49,7 @@
         values (#{number}, #{status},#{userId},#{addressBookId},#{orderTime},
                 #{payMethod},#{amount},#{remark},#{phone})
     </insert>
+    <select id="selNu" resultType="int">
+        select count(*) from orders
+    </select>
 </mapper>

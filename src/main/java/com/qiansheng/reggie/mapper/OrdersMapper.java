@@ -15,5 +15,7 @@ public interface OrdersMapper {
     //根据时间查询订单id
     String selOIdByTime(LocalDateTime localDateTime);
     //查询
-    List<OrdersDto> selPage(@Param("page") int page, @Param("pageSize") int pageSize);
+    List<OrdersDto> selPage(@Param("page") int page, @Param("pageSize") int pageSize,@Param("orders") Orders orders);
+    //查询总条数
+    int selNu();
 }
