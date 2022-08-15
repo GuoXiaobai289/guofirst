@@ -67,6 +67,8 @@ public class UserController {
                 user.setPhone(phone);
                 user.setStatus(1);
                 int i = userService.userAdd(user);
+                //查询userId
+                user = userService.userSelByPhone(phone);
             }
             if(user.getStatus()==0){
                 return R.error("用户已被禁用！");

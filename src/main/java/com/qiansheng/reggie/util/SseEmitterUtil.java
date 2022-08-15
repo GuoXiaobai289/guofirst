@@ -43,7 +43,7 @@ public class SseEmitterUtil {
         sseEmitterMap.put(userId, sseEmitter);
         // 数量+1
         count.getAndIncrement();
-        log.info("创建新的sse连接，当前用户：{}", userId);
+        log.info("创建新的sse连接，当前用户："+userId+"，当前在线人数："+SseEmitterUtil.getUserCount());
         return sseEmitter;
     }
 
@@ -75,6 +75,7 @@ public class SseEmitterUtil {
     public static void batchSendMessage(String wsInfo) {
         sseEmitterMap.forEach((k, v) -> {
             try {
+                log.info("开始群发！当前在线人数："+SseEmitterUtil.getUserCount());
                 v.send(wsInfo, MediaType.APPLICATION_JSON);
             } catch (IOException e) {
                 log.error("用户[{}]推送异常:{}", k, e.getMessage());
@@ -90,7 +91,10 @@ public class SseEmitterUtil {
         sseEmitterMap.remove(userId);
         // 数量-1
         count.getAndDecrement();
-        log.info("移除用户：{}", userId);
+        if(count.intValue()<0){
+            count.set(0);
+        }
+        log.info("移除用户："+userId+",在线人数为:"+SseEmitterUtil.getUserCount());
     }
 
     /**

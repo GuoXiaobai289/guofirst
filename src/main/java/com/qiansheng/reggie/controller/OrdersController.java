@@ -1,20 +1,19 @@
 package com.qiansheng.reggie.controller;
 
 import com.alibaba.fastjson2.JSON;
+import com.qiansheng.reggie.controller.util.Page;
 import com.qiansheng.reggie.controller.util.R;
 import com.qiansheng.reggie.pojo.Orders;
 import com.qiansheng.reggie.pojo.ShoppingCart;
 import com.qiansheng.reggie.pojo.User;
+import com.qiansheng.reggie.pojo.dto.OrdersDto;
 import com.qiansheng.reggie.service.iOrdersService;
 import com.qiansheng.reggie.service.iShoppingCartService;
 import com.qiansheng.reggie.util.SnowFlakeUtil;
 import com.qiansheng.reggie.util.SseEmitterUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -51,11 +50,18 @@ public class OrdersController {
         orders.setOrderTime(LocalDateTime.now());
         orders.setPhone(user.getPhone());
         orders.setNumber(numberid);
-        boolean submit = ordersService.submit(orders, shoppingCarts);
+        boolean submit = ordersService.OrderSubmit(orders, shoppingCarts);
         if(submit){
             SseEmitterUtil.batchSendMessage(JSON.toJSONString(shoppingCarts));
             return R.success("提交成功！");
         }
         return R.error("提交失败！");
+    }
+    @GetMapping("/userPage")
+    public R<Page> list(String page, String pageSize){
+        List<OrdersDto> ordersDtos = ordersService.OrderSelPage(page, pageSize);
+        Page<OrdersDto> ordersPage = new Page();
+        ordersPage.setRecords(ordersDtos);
+        return R.success(ordersPage);
     }
 }

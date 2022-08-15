@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiansheng.reggie.mapper.SetmealMapper">
+    <resultMap id="setmealDtoResultMap" type="SetmealDto">
+        <result column="create_time" property="createTime"></result>
+        <result column="update_time" property="updateTime"></result>
+        <result column="create_user" property="createUser"></result>
+        <result column="update_user" property="updateUser"></result>
+        <result column="category_id" property="categoryId"></result>
+    </resultMap>
+    <select id="selByCate" resultType="int">
+        select count(*) from setmeal where category_id=#{id}
+    </select>
+
+    <select id="sel" resultMap="setmealDtoResultMap">
+        select setmeal.id, setmeal.name,category.name as categoryName,
+               setmeal.price,setmeal.code, setmeal.image, setmeal.description, setmeal.status,
+               setmeal.create_time as create_time, setmeal.update_time as update_time
+        from setmeal,category where setmeal.category_id=category.id
+        <if test="name!=null">
+            and setmeal.name like #{name}
+        </if>
+        limit #{page},#{pageSize}
+    </select>
+    <select id="selNum" resultType="int">
+        select count(*) from setmeal;
+    </select>
+    <insert id="inse" parameterType="SetmealDto">
+        insert into
+            setmeal(name,category_id, price, image, description, status, create_time, update_time,create_user,update_user)
+        values
+               (#{name},#{categoryId},#{price},#{image},#{description},#{status},#{createTime},#{updateTime},#{createUser},#{updateUser})
+    </insert>
+    <select id="selIdByName" resultType="String">
+        select id from setmeal where name=#{name}
+    </select>
+    <select id="selById" resultMap="setmealDtoResultMap">
+        select * from setmeal where id=#{id}
+    </select>
+    <update id="up" parameterType="SetmealDto">
+        update setmeal set
+         name=#{name},category_id=#{categoryId}, price=#{price}, image=#{image}, description=#{description},
+         update_time=#{updateTime},update_user=#{updateUser}
+        where id=#{id}
+    </update>
+    <update id="upst">
+        update setmeal set
+            status=#{type}
+        where id=#{id}
+    </update>
+    <select id="isSt" resultType="int">
+        select count(*) from setmeal where id in
+        <foreach item="ids" index="index" collection="array"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+        and status=0;
+    </select>
+    <delete id="del">
+        delete from setmeal
+            where id=#{id}
+    </delete>
+    <select id="selByCaId" resultMap="setmealDtoResultMap">
+        select * from setmeal where category_id=#{caid}
+    </select>
+</mapper>

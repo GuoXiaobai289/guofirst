@@ -6,6 +6,8 @@ import com.qiansheng.reggie.service.iOrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderDetailServiceImpl implements iOrderDetailService {
 
@@ -15,5 +17,10 @@ public class OrderDetailServiceImpl implements iOrderDetailService {
     @Override
     public int orderDetailAdd(OrderDetail orderDetail) {
         return orderDetailMapper.inse(orderDetail);
+    }
+
+    @Override
+    public List<OrderDetail> orderDetaiSelByOrder(String id) {
+        return orderDetailMapper.selByOrder(id);
     }
 }

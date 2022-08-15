@@ -4,6 +4,7 @@ import com.qiansheng.reggie.mapper.OrdersMapper;
 import com.qiansheng.reggie.pojo.OrderDetail;
 import com.qiansheng.reggie.pojo.Orders;
 import com.qiansheng.reggie.pojo.ShoppingCart;
+import com.qiansheng.reggie.pojo.dto.OrdersDto;
 import com.qiansheng.reggie.service.iOrderDetailService;
 import com.qiansheng.reggie.service.iOrdersService;
 import com.qiansheng.reggie.service.iShoppingCartService;
@@ -31,7 +32,7 @@ public class OrdersServiceIMpl implements iOrdersService {
 
     @Override
     @Transactional
-    public boolean submit(Orders orders, List<ShoppingCart> shoppingCarts) {
+    public boolean OrderSubmit(Orders orders, List<ShoppingCart> shoppingCarts) {
         LocalDateTime orderTime = orders.getOrderTime();
         List<OrderDetail> orderDetails = new ArrayList();
         String ordernumber = orders.getNumber();
@@ -64,5 +65,18 @@ public class OrdersServiceIMpl implements iOrdersService {
         //清空购物车
         shoppingCartService.shopDelAll(orders.getUserId());
         return true;
+    }
+
+    @Override
+    public List<OrdersDto> OrderSelPage(String page, String pageSize) {
+        int p= (Integer.parseInt(page)-1)*Integer.parseInt(pageSize);
+        List<OrdersDto> ordersDtos = orderMapper.selPage(p, Integer.parseInt(pageSize));
+        for (OrdersDto ordersDto : ordersDtos) {
+            String number = ordersDto.getNumber();
+            //通过订单号查询订单详情
+            List<OrderDetail> orderDetails = orderDetailService.orderDetaiSelByOrder(number);
+            ordersDto.setOrderDetails(orderDetails);
+        }
+        return ordersDtos;
     }
 }
