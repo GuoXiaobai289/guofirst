@@ -30,4 +30,6 @@ public interface DishMapper {
     int del(String id);
     //通过分类id获取菜品列表
     List<DishDto> selByCid(String id);
+    //根据id查询分类
+    String selCaByid(String id);
 }

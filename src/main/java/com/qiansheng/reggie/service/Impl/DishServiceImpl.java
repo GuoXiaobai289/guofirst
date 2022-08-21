@@ -72,4 +72,9 @@ public class DishServiceImpl implements iDishService {
     public List<DishDto> dishSelByCid(String id) {
         return dishMapper.selByCid(id);
     }
+
+    @Override
+    public String dishSelCaByid(String id) {
+        return dishMapper.selCaByid(id);
+    }
 }

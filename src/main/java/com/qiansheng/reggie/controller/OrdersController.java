@@ -7,6 +7,7 @@ import com.qiansheng.reggie.pojo.Orders;
 import com.qiansheng.reggie.pojo.ShoppingCart;
 import com.qiansheng.reggie.pojo.User;
 import com.qiansheng.reggie.pojo.dto.OrdersDto;
+import com.qiansheng.reggie.pojo.vo.OrdersVo;
 import com.qiansheng.reggie.service.iOrdersService;
 import com.qiansheng.reggie.service.iShoppingCartService;
 import com.qiansheng.reggie.util.SnowFlakeUtil;
@@ -74,7 +75,7 @@ public class OrdersController {
     public R<Page> userlist(String page, String pageSize,HttpServletRequest request){
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        Orders orders = new Orders();
+        OrdersVo orders = new OrdersVo();
         orders.setUserId(user.getId());
         List<OrdersDto> ordersDtos = ordersService.OrderSelPage(page, pageSize,orders);
         Page<OrdersDto> ordersPage = new Page();
@@ -89,8 +90,8 @@ public class OrdersController {
      * @return
      */
     @GetMapping("/page")
-    public R<Page> list(String page, String pageSize,String name){
-        List<OrdersDto> ordersDtos = ordersService.OrderSelPage(page, pageSize,new Orders());
+    public R<Page> list(String page, String pageSize, OrdersVo ordersVo){
+        List<OrdersDto> ordersDtos = ordersService.OrderSelPage(page, pageSize,ordersVo);
         int i = ordersService.OrderNu();
         Page<OrdersDto> ordersPage = new Page();
         ordersPage.setTotal(i);

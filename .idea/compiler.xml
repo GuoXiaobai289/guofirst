@@ -7,7 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="RedisDamo" />
         <module name="reggie" />
+        <module name="douyin" />
       </profile>
     </annotationProcessing>
   </component>

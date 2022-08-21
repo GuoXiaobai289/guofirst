@@ -125,11 +125,6 @@ public class CategoryController {
      */
     @RequestMapping("/list")
     public R<List<Category>> list(@RequestParam(defaultValue = "10") Integer type,HttpServletRequest request){
-        //用户端登录后清除验证码记录
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        session.removeAttribute(user.getPhone());
-
         List<Category> categories = categoryService.categorySelList(type);
         if(categories!=null){
             return R.success(categories);

@@ -54,4 +54,7 @@
     <select id="selByCid" resultMap="dishdtoResultMap">
         select * from dish where category_id=#{id} and status=1
     </select>
+    <select id="selCaByid" resultType="java.lang.String">
+        select category_id from dish where id=#{id};
+    </select>
 </mapper>

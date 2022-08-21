@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 
 /**
@@ -12,7 +13,7 @@ import java.sql.SQLException;
  */
 @RestControllerAdvice(annotations = {RestController.class})
 @Slf4j
-public class ProjectAdvice {
+public class ProjectAdvice implements Serializable {
     /**
      * 拦截数据库的异常
      * @param exception

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="TemplatesSettings">
+    <option name="templateConfigs">
+      <TemplateContext>
+        <option name="generateConfig">
+          <GenerateConfig>
+            <option name="annotationType" value="NONE" />
+            <option name="basePackage" value="com.qian.douyin" />
+            <option name="basePath" value="src/main/java" />
+            <option name="classNameStrategy" value="camel" />
+            <option name="encoding" value="UTF-8" />
+            <option name="extraClassSuffix" value="" />
+            <option name="ignoreFieldPrefix" value="" />
+            <option name="ignoreFieldSuffix" value="" />
+            <option name="ignoreTablePrefix" value="" />
+            <option name="ignoreTableSuffix" value="" />
+            <option name="moduleName" value="douyin" />
+            <option name="modulePath" value="E:/New/java/Spring-Boot/douyin" />
+            <option name="moduleUIInfoList">
+              <list>
+                <ModuleInfoGo>
+                  <option name="basePath" value="${domain.basePath}" />
+                  <option name="configName" value="mapperInterface" />
+                  <option name="encoding" value="${domain.encoding}" />
+                  <option name="fileName" value="${domain.fileName}Mapper" />
+                  <option name="fileNameWithSuffix" value="${domain.fileName}Mapper.java" />
+                  <option name="modulePath" value="E:/New/java/Spring-Boot/douyin" />
+                  <option name="packageName" value="${domain.basePackage}.mapper" />
+                </ModuleInfoGo>
+                <ModuleInfoGo>
+                  <option name="basePath" value="src/main/resources" />
+                  <option name="configName" value="mapperXml" />
+                  <option name="encoding" value="${domain.encoding}" />
+                  <option name="fileName" value="${domain.fileName}Mapper" />
+                  <option name="fileNameWithSuffix" value="${domain.fileName}Mapper.xml" />
+                  <option name="modulePath" value="E:/New/java/Spring-Boot/douyin" />
+                  <option name="packageName" value="mapper" />
+                </ModuleInfoGo>
+              </list>
+            </option>
+            <option name="needToStringHashcodeEquals" value="true" />
+            <option name="needsComment" value="true" />
+            <option name="relativePackage" value="pojo" />
+            <option name="superClass" value="" />
+            <option name="tableUIInfoList">
+              <list>
+                <TableUIInfo>
+                  <option name="className" value="Video" />
+                  <option name="tableName" value="video" />
+                </TableUIInfo>
+              </list>
+            </option>
+            <option name="templatesName" value="default-all" />
+          </GenerateConfig>
+        </option>
+        <option name="moduleName" value="douyin" />
+        <option name="projectPath" value="$PROJECT_DIR$" />
+        <option name="templateName" value="default-all" />
+      </TemplateContext>
+    </option>
+  </component>
+</project>

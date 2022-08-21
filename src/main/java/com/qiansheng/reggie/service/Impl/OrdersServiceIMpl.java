@@ -5,6 +5,7 @@ import com.qiansheng.reggie.pojo.OrderDetail;
 import com.qiansheng.reggie.pojo.Orders;
 import com.qiansheng.reggie.pojo.ShoppingCart;
 import com.qiansheng.reggie.pojo.dto.OrdersDto;
+import com.qiansheng.reggie.pojo.vo.OrdersVo;
 import com.qiansheng.reggie.service.iOrderDetailService;
 import com.qiansheng.reggie.service.iOrdersService;
 import com.qiansheng.reggie.service.iShoppingCartService;
@@ -68,7 +69,7 @@ public class OrdersServiceIMpl implements iOrdersService {
     }
 
     @Override
-    public List<OrdersDto> OrderSelPage(String page, String pageSize,Orders orders) {
+    public List<OrdersDto> OrderSelPage(String page, String pageSize, OrdersVo orders) {
         int p= (Integer.parseInt(page)-1)*Integer.parseInt(pageSize);
         List<OrdersDto> ordersDtos = orderMapper.selPage(p, Integer.parseInt(pageSize),orders);
         for (OrdersDto ordersDto : ordersDtos) {

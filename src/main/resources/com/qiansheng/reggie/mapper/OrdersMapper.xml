@@ -33,6 +33,12 @@
             <if test="orders.userId!=null">
                 and user_id=#{orders.userId}
             </if>
+            <if test="orders.number!=null">
+                and number=#{orders.number}
+            </if>
+            <if test="orders.beginTime!=null">
+                and order_time between #{orders.beginTime} and #{endTime}
+            </if>
             <if test="pageSize==1">
                 and order_time=(
                 SELECT MAX(order_time)

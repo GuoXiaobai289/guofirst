@@ -17,4 +17,6 @@ public interface iDishService {
     boolean dishUpStatus(String[] ids, int type);
     boolean dishDel(String[] ids);
     List<DishDto> dishSelByCid(String id);
+    //根据id查询分类
+    String dishSelCaByid(String id);
 }

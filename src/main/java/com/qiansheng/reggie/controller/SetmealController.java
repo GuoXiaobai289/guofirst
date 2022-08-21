@@ -10,6 +10,8 @@ import com.qiansheng.reggie.service.iSetmealDishService;
 import com.qiansheng.reggie.service.iSetmealService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,11 +50,12 @@ public class SetmealController {
     }
 
     /**
-     *
+     * 新增套擦
      * @param setmealDto
      * @param request
      * @return
      */
+    @CacheEvict(value = "setmeal",allEntries = true)
     @PostMapping
     public R<String> ins(@RequestBody SetmealDto setmealDto, HttpServletRequest request) {
         //log.info(setmealDto.toString());
@@ -89,7 +92,9 @@ public class SetmealController {
      * @param setmealDto
      * @param request
      * @return
+     * @CacheEvict 清除此分类下的缓存
      */
+    @CacheEvict(value = "setmeal",key = "'setmeal_' + #setmealDto.categoryId")
     @PutMapping
     public R<String> up(@RequestBody SetmealDto setmealDto,HttpServletRequest request){
         Employee employee = (Employee) request.getSession().getAttribute("employee");
@@ -105,7 +110,9 @@ public class SetmealController {
     /**
      * 停/启售
      * @return
+     * @CacheEvict allEntries = true 表示全部清空缓存
      */
+    @CacheEvict(value = "setmeal",allEntries = true)
     @PostMapping("/status/{type}")
     public R<String > upStatus(@PathVariable("type") int type,String ids){
         String[] split = ids.split(",");
@@ -120,6 +127,7 @@ public class SetmealController {
      * 删除
      * @return
      */
+    @CacheEvict(value = "setmeal",allEntries = true)
     @DeleteMapping
     public R<String> del(String ids) throws Exception {
         String[] split = ids.split(",");
@@ -131,10 +139,12 @@ public class SetmealController {
     }
 
     /**
-     * 查询套餐下的分类列表
+     * 根据分类查询套餐列表
      * @param categoryId
      * @return
+     * @Cacheable 将返回值写入缓存
      */
+    @Cacheable(value = "setmeal",key = "'setmeal_' + #categoryId")
     @GetMapping("/list")
     public R<List<SetmealDto>> list(String categoryId){
         log.info(categoryId);
