@@ -8,9 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="RedisDamo" />
-        <module name="reggie" />
         <module name="douyin" />
+        <module name="CampusErrands" />
+        <module name="reggie" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="school" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
