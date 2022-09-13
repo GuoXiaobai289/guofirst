@@ -50,13 +50,14 @@ public class ShoppingCartController {
         shoppingCart.setCreateTime(LocalDateTime.now());
         //判断是否存在
         ShoppingCart shoppingCarts = shoppingCartService.shopSelByUDS(shoppingCart);
+          //不存在
         if (shoppingCarts == null) {
             shoppingCart.setNumber(1);
             boolean b = shoppingCartService.shopAdd(shoppingCart);
             if (b) {
                 return R.success(shoppingCarts);
             }
-        } else {
+        } else {//存在
             Integer number = shoppingCarts.getNumber();
             number++;
             shoppingCarts.setNumber(number);
